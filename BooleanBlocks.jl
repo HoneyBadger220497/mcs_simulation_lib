@@ -2,7 +2,7 @@
 module BooleanBlocks
 
 import Modia
-export BooleanSignal, BooleanStepSignal, BooleaPin
+export BooleanSignal, BooleanStepSignal, BooleanPin
 
 Modia.@model BooleanPin begin
     y = Modia.Boolean(start = false)
