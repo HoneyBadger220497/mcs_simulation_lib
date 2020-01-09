@@ -2,19 +2,26 @@
 module BooleanBlocks
 
 import Modia
-export BooleanSignal, BooleanStepSignal
+export BooleanSignal, BooleanStepSignal, BooleaPin
 
-Modia.@model BooleanSignal begin
-    y = Modia.Boolean(true)
+Modia.@model BooleanPin begin
+    y = Modia.Boolean(start = false)
+end
+
+Modia.@model BooleanOnSignal begin
+    output = BooleanPin()
+    on = true
+    @equations begin
+        output.y = on
+    end
 end
 
 Modia.@model BooleanStepSignal begin
-    @extends BooleanSignal()
-    @inherits y
-    start_value = Modia.Parameter(value = false)
-    start_time = Modia.Parameter(value = 1)
+    output = BooleanPin()
+    start_value = false
+    start_time = 1
     @equations begin
-    y = if time < start_time start_value else !start_value end
+    output.y = if time < start_time start_value else !start_value end
     end
 end
 
